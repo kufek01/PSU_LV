@@ -1,0 +1,85 @@
+#ZADATAK 1 Napišite program koji od korisnika zahtijeva unos radnih sati te koliko je plaćen po radnom satu. Koristite ugrađenu
+#Python metodu input(). Nakon toga izračunajte koliko je korisnik zaradio i ispišite na ekran. Na kraju prepravite
+#rješenje na način da ukupni iznos izračunavate u zasebnoj funkciji naziva total_euro.
+
+br_sati = float(input("Unesite broj radnih sati: "))
+br_cijena = float(input("Unesite cijenu radnog sata: "))
+total_euro = br_sati * br_cijena
+print(f"Rezultat je {total_euro}" eura)
+
+#ZADATAK 2 Napišite program koji od korisnika zahtijeva upis jednog broja koji predstavlja nekakvu ocjenu i nalazi se između 0.0 i
+#1.0. Ispišite kojoj kategoriji pripada ocjena na temelju sljedećih uvjeta:
+#>= 0.9 A
+#>= 0.8 B
+#>= 0.7 C
+#>= 0.6 D
+#< 0.6 F
+#Ako korisnik nije utipkao broj, ispišite na ekran poruku o grešci (koristite try i except naredbe). Također, ako je
+#broj izvan intervala [0.0 i 1.0] potrebno je ispisati odgovarajuću poruku.
+def konacna_ocjena():
+    try:
+        ocjena = float(input("Unesite ocjenu od 0.0 do 1.0"))
+
+        if ocjena < 0.0 or ocjena > 1.0:
+            print("Greska, ocjena mora biti izmedu 0.0 i 1.0")
+        elif ocjena >= 0.9:
+            print("Vasa ocjena je A")
+        elif ocjena >= 0.8:
+            print("Vasa ocjena je B")
+        elif ocjena >= 0.7:
+            print("Vasa ocjena je C")
+        elif ocjena >= 0.6:
+            print("Vasa ocjena je D")
+        else:
+            print("Vasa ocjena je F")
+    except ValueError:
+        print("Greska, molimo unesite broj")
+
+konacna_ocjena()
+
+#ZADATAK 3 Napišite program koji od korisnika zahtijeva unos brojeva u beskonačnoj petlji sve dok korisnik ne upiše „Done“ (bez
+#navodnika). Pri tome brojeve spremajte u listu. Nakon toga potrebno je ispisati koliko brojeva je korisnik unio, njihovu
+#srednju, minimalnu i maksimalnu vrijednost. Sortirajte listu i ispišite je na ekran.
+#Dodatno: osigurajte program od pogrešnog unosa (npr. slovo umjesto brojke) na način da program zanemari taj unos i
+#ispiše odgovarajuću poruku.
+brojevi = []
+
+while True:
+    unos = input("Unesite broj: ")
+    if unos.lower() == "done":
+        break
+    try:
+        broj = float(unos)
+        brojevi.append(broj)
+    except ValueError:
+        print("Neispravan unos.")
+if brojevi:
+    print(f"Broj unesenih brojeva:{len(brojevi)}")
+    print(f"Srednja vrijednost:{sum(brojevi) / len(brojevi):.2f}")
+    print(f"Minimalna vrijednost:{min(brojevi)}")
+    print(f"Maksimalna vrijednost:{max(brojevi)}")
+
+    sortirani_brojevi = sorted(brojevi)
+    print("Sortiranje:")
+    print(sortirani_brojevi)
+else:
+    print("Niste napravili unos.")
+
+#ZADATAK 4 Napišite program koji od korisnika zahtijeva unos imena tekstualne datoteke. Program nakon toga treba tražiti linije
+#oblika:Primijenjeno strojno učenje – laboratorijske vježbe – VJEŽBA 1 7
+X-DSPAM-Confidence: <neki_broj>
+koje predstavljaju pouzdanost korištenog spam filtra. Potrebno je izračunati srednju vrijednost pouzdanosti. Koristite
+datoteke mbox.txt i mbox-short.txt
+
+fname = raw_input("Unesite ime datoteke ")
+count=0
+value = 0
+sum=0
+fh = open(fname)
+for line in fh:
+    if not line.startswith("X-DSPAM-Confidence:") : continue
+    pos = line.find(':')
+    num = float(line[pos+1:])
+    sum=sum+num
+    count = count+1    
+print "Average X-DSPAM-Confidence:", sum/count
