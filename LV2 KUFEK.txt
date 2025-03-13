@@ -1,0 +1,93 @@
+ZADATAK 1
+import numpy as np
+import matplotlib.pyplot as plt 
+
+x = np.array([1.0, 2.0, 3.0, 3.0, 1.0])
+y = np.array([1.0, 2.0, 2.0, 1.0, 1.0])
+plt.plot(x, y, marker='.', linestyle='-', color='blue') 
+
+plt.xlabel('x os') 
+plt.ylabel('y os') 
+plt.title('Primjer')
+plt.show()
+
+ZADATAK 2
+
+ZADATAK 3
+
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+
+image_path = r'C:\Users\student\Desktop\tiger.png'
+
+image = Image.open(image_path)
+image_array = np.array(image)
+
+brighter_image = np.clip(image_array + 50, 0, 255).astype(np.uint8)
+brighter_image_pil = Image.fromarray(brighter_image)
+
+rotated_image = image.rotate(-90, expand=True)
+
+flipped_image = image.transpose(Image.FLIP_LEFT_RIGHT)
+
+smaller_image = image.resize((image.width // 10, image.height // 10))
+
+quarter_width = image.width // 4
+second_quarter = image.crop((quarter_width, 0, quarter_width * 2, image.height))
+black_image = Image.new('RGB', (image.width, image.height), (0, 0, 0))
+black_image.paste(second_quarter, (quarter_width, 0))
+
+plt.figure(figsize=(15, 5))
+plt.subplot(1, 5, 1)
+plt.imshow(brighter_image_pil)
+plt.axis('off')
+plt.title('Posvijetljena')
+
+plt.subplot(1, 5, 2)
+plt.imshow(rotated_image)
+plt.axis('off')
+plt.title('Rotirana')
+
+plt.subplot(1, 5, 3)
+plt.imshow(flipped_image)
+plt.axis('off')
+plt.title('Zrcaljena')
+
+plt.subplot(1, 5, 4)
+plt.imshow(smaller_image)
+plt.axis('off')
+plt.title('Smanjena')
+
+plt.subplot(1, 5, 5)
+plt.imshow(black_image)
+plt.axis('off')
+plt.title('Druga četvrtina')
+
+plt.tight_layout()
+plt.show()
+
+ZADATAK 4
+import numpy as np
+import matplotlib.pyplot as plt
+
+def generate_checkerboard(square_size, num_squares_height, num_squares_width):
+    basic_pattern = np.array([[0, 255], [255, 0]])
+    
+    checkerboard = np.tile(basic_pattern, (num_squares_height, num_squares_width))
+    
+    checkerboard = np.repeat(checkerboard, square_size, axis=0)  
+    checkerboard = np.repeat(checkerboard, square_size, axis=1) 
+    
+    return checkerboard
+
+square_size = 20
+num_squares_height = 4  
+num_squares_width = 4   
+checkerboard_image = generate_checkerboard(square_size, num_squares_height, num_squares_width)
+
+plt.imshow(checkerboard_image, cmap='gray', vmin=0, vmax=255)
+plt.axis('off')
+plt.title('Checkerboard Pattern')
+plt.grid('True')
+plt.show()
