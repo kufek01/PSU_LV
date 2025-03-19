@@ -1,0 +1,42 @@
+#LV3 ZADATAK 1
+import numpy as np
+import pandas as pd
+
+data = pd.read_csv("mtcars.csv")
+
+# 1.
+top_5_mpg = data.sort_values(by="mpg", ascending=False).head(5)
+print("1. 5 automobila s najvećom potrošnjom:")
+print(top_5_mpg[['car', 'mpg']])
+
+# 2.
+cyl_8_lowest_mpg = data[data['cyl'] == 8].sort_values(by="mpg").head(3)
+print("\n2. 3 automobila s 8 cilindara i najmanjom potrošnjom:")
+print(cyl_8_lowest_mpg[['car', 'mpg']])
+
+# 3.
+mean_mpg_6cyl = data[data['cyl'] == 6]['mpg'].mean()
+print(f"\n3. Srednja potrošnja automobila sa 6 cilindara: {mean_mpg_6cyl:.2f}")
+
+# 4.
+mean_mpg_4cyl_wt = data[(data['cyl'] == 4) & (data['wt'] >= 2.0) & (data['wt'] <= 2.2)]['mpg'].mean()
+print(f"\n4. Srednja potrošnja automobila s 4 cilindra mase između 2000 i 2200 lbs: {mean_mpg_4cyl_wt:.2f}")
+
+# 5.
+manual_count = data[data['am'] == 1].shape[0]
+automatic_count = data[data['am'] == 0].shape[0]
+print(f"\n5. Broj automobila s ručnim mjenjačem: {manual_count}")
+print(f" Broj automobila s automatskim mjenjačem: {automatic_count}")
+
+# 6.
+automatic_hp_100 = data[(data['am'] == 0) & (data['hp'] > 100)].shape[0]
+print(f"\n6. Broj automobila s automatskim mjenjačem i snagom preko 100 konjskih snaga: {automatic_hp_100}")
+
+# 7.
+data['wt_kg'] = data['wt'] * 453.592 # Pretvorba iz lbs u kg
+print("\n7. Masa svakog automobila u kilogramima:")
+print(data[['car', 'wt_kg']])
+
+
+#LV3 ZADATAK 2
+
